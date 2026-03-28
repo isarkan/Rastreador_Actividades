@@ -69,4 +69,14 @@ class TaskController extends Controller
     \App\Models\Task::destroy($id);
     return redirect()->route('tasks.index');
     }
+
+    public function dashboard()
+    {
+        $pendientes = \App\Models\Task::where('estado','pendiente')->get();
+        $proceso = \App\Models\Task::where('estado','proceso')->get();
+        $completadas = \App\Models\Task::where('estado','completada')->get();
+
+        return view('dashboard', compact('pendientes','proceso','completadas'));
+    }
+
 }
