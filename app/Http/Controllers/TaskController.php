@@ -79,4 +79,15 @@ class TaskController extends Controller
         return view('dashboard', compact('pendientes','proceso','completadas'));
     }
 
+    public function updateStatus(Request $request)
+    {
+    $task = \App\Models\Task::find($request->id);
+
+    $task->estado = $request->estado;
+
+    $task->save();
+
+    return response()->json(['success' => true]);
+    }
+
 }
