@@ -1,52 +1,110 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Dashboard de tareas</title>
+    <title>Dashboard</title>
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 </head>
-<body>
 
-<h1>Dashboard de Actividades</h1>
+<body class="bg-gray-100 min-h-screen p-10">
 
-<a href="/tasks">Administrar tareas</a>
+<h1 class="text-3xl font-bold text-center mb-8">
+📊 Rastreador de Actividades
+</h1>
 
-<hr>
+<div class="grid grid-cols-3 gap-6">
 
-<div style="display:flex; gap:50px">
+<!-- Pendientes -->
 
-<div>
-<h2>Pendientes</h2>
+<div class="bg-white rounded-lg shadow p-4">
+
+<h2 class="text-xl font-bold text-yellow-600 mb-4">
+Pendientes ({{ count($pendientes) }})
+</h2>
+
+<div id="pendiente" class="task-list space-y-3 min-h-[200px]">
 
 @foreach($pendientes as $task)
 
-<p>{{ $task->titulo }}</p>
+<div class="task bg-yellow-100 p-3 rounded shadow"
+data-id="{{ $task->id }}">
+
+<p class="font-semibold">{{ $task->titulo }}</p>
+
+<p class="text-sm text-gray-600">
+{{ $task->descripcion }}
+</p>
+
+</div>
 
 @endforeach
 
 </div>
 
-<div>
-<h2>En proceso</h2>
+</div>
+
+<!-- En proceso -->
+
+<div class="bg-white rounded-lg shadow p-4">
+
+<h2 class="text-xl font-bold text-blue-600 mb-4">
+En proceso ({{ count($proceso) }})
+</h2>
+
+<div id="proceso" class="task-list space-y-3 min-h-[200px]">
 
 @foreach($proceso as $task)
 
-<p>{{ $task->titulo }}</p>
+<div class="task bg-blue-100 p-3 rounded shadow"
+data-id="{{ $task->id }}">
+
+<p class="font-semibold">{{ $task->titulo }}</p>
+
+<p class="text-sm text-gray-600">
+{{ $task->descripcion }}
+</p>
+
+</div>
 
 @endforeach
 
 </div>
 
-<div>
-<h2>Completadas</h2>
+</div>
+
+<!-- Completadas -->
+
+<div class="bg-white rounded-lg shadow p-4">
+
+<h2 class="text-xl font-bold text-green-600 mb-4">
+Completadas ({{ count($completadas) }})
+</h2>
+
+<div id="completada" class="task-list space-y-3 min-h-[200px]">
 
 @foreach($completadas as $task)
 
-<p>{{ $task->titulo }}</p>
+<div class="task bg-green-100 p-3 rounded shadow"
+data-id="{{ $task->id }}">
+
+<p class="font-semibold">{{ $task->titulo }}</p>
+
+<p class="text-sm text-gray-600">
+{{ $task->descripcion }}
+</p>
+
+</div>
 
 @endforeach
+
+</div>
 
 </div>
 
 </div>
 
 </body>
+
 </html>
