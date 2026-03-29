@@ -122,6 +122,38 @@ Editar
 
 </div>
 
+<div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+
+<div class="bg-white p-6 rounded w-96">
+
+<h2 class="text-xl font-bold mb-4">Editar tarea</h2>
+
+<input id="editTitulo" class="border p-2 w-full mb-2" placeholder="Título">
+
+<textarea id="editDescripcion" class="border p-2 w-full mb-2" placeholder="Descripción"></textarea>
+
+<select id="editEstado" class="border p-2 w-full mb-4">
+    <option value="pendiente">Pendiente</option>
+    <option value="proceso">En proceso</option>
+    <option value="completada">Completada</option>
+</select>
+
+<div class="flex justify-end gap-2">
+
+<button onclick="cerrarModal()" class="bg-gray-400 text-white px-3 py-1 rounded">
+Cancelar
+</button>
+
+<button onclick="guardarCambios()" class="bg-blue-600 text-white px-3 py-1 rounded">
+Guardar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
 </body>
 
 </html>
