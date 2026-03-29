@@ -4,6 +4,13 @@
 <head>
     <title>Dashboard</title>
 
+    <input 
+    type="text" 
+    id="buscador"
+    placeholder="🔍 Buscar tareas..."
+    class="w-full p-3 mb-6 border rounded shadow"
+>
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -36,7 +43,10 @@ Pendientes ({{ count($pendientes) }})
 
 <div class="task p-3 rounded shadow
     {{ $vencida ? 'bg-red-300 border-2 border-red-600' : 'bg-yellow-100' }}"
-    data-id="{{ $task->id }}">
+    data-id="{{ $task->id }}"
+    data-titulo="{{ strtolower($task->titulo) }}"
+    data-descripcion="{{ strtolower($task->descripcion) }}">
+    
 
 @if($vencida)
     <p class="text-xs text-red-700 font-bold">
@@ -53,6 +63,7 @@ Pendientes ({{ count($pendientes) }})
 <p class="text-sm text-gray-600">
 {{ $task->descripcion }}
 </p>
+
 
 <button onclick="editarTask({{ $task->id }}, '{{ $task->titulo }}', '{{ $task->descripcion }}', '{{ $task->estado }}')"
 class="text-xs text-blue-600 mt-2">
@@ -85,7 +96,9 @@ En proceso ({{ count($proceso) }})
 
 <div class="task p-3 rounded shadow
     {{ $vencida ? 'bg-red-300 border-2 border-red-600' : 'bg-yellow-100' }}"
-    data-id="{{ $task->id }}">
+    data-id="{{ $task->id }}"
+    data-titulo="{{ strtolower($task->titulo) }}"
+    data-descripcion="{{ strtolower($task->descripcion) }}">
 
 @if($vencida)
     <p class="text-xs text-red-700 font-bold">
@@ -134,7 +147,9 @@ Completadas ({{ count($completadas) }})
 
 <div class="task p-3 rounded shadow
     {{ $vencida ? 'bg-red-300 border-2 border-red-600' : 'bg-yellow-100' }}"
-    data-id="{{ $task->id }}">
+    data-id="{{ $task->id }}"
+    data-titulo="{{ strtolower($task->titulo) }}"
+    data-descripcion="{{ strtolower($task->descripcion) }}">
 
 @if($vencida)
     <p class="text-xs text-red-700 font-bold">

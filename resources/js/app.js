@@ -77,3 +77,28 @@ window.guardarCambios = function() {
     .then(() => location.reload());
 
 }
+
+const buscador = document.getElementById('buscador');
+
+if (buscador) {
+
+    buscador.addEventListener('keyup', function () {
+
+        let texto = this.value.toLowerCase();
+
+        document.querySelectorAll('.task').forEach(task => {
+
+            let titulo = task.dataset.titulo;
+            let descripcion = task.dataset.descripcion;
+
+            if (titulo.includes(texto) || descripcion.includes(texto)) {
+                task.style.display = 'block';
+            } else {
+                task.style.display = 'none';
+            }
+
+        });
+
+    });
+
+}
