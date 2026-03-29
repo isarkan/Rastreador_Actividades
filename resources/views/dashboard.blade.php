@@ -39,6 +39,11 @@ data-id="{{ $task->id }}">
 {{ $task->descripcion }}
 </p>
 
+<button onclick="editarTask({{ $task->id }}, '{{ $task->titulo }}', '{{ $task->descripcion }}', '{{ $task->estado }}')"
+class="text-xs text-blue-600 mt-2">
+Editar
+</button>
+
 </div>
 
 @endforeach
@@ -68,6 +73,11 @@ data-id="{{ $task->id }}">
 {{ $task->descripcion }}
 </p>
 
+<button onclick="editarTask({{ $task->id }}, '{{ $task->titulo }}', '{{ $task->descripcion }}', '{{ $task->estado }}')"
+class="text-xs text-blue-600 mt-2">
+Editar
+</button>
+
 </div>
 
 @endforeach
@@ -96,6 +106,11 @@ data-id="{{ $task->id }}">
 <p class="text-sm text-gray-600">
 {{ $task->descripcion }}
 </p>
+
+<button onclick="editarTask({{ $task->id }}, '{{ $task->titulo }}', '{{ $task->descripcion }}', '{{ $task->estado }}')"
+class="text-xs text-blue-600 mt-2">
+Editar
+</button>
 
 </div>
 
