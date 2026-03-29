@@ -30,10 +30,25 @@ Pendientes ({{ count($pendientes) }})
 
 @foreach($pendientes as $task)
 
-<div class="task bg-yellow-100 p-3 rounded shadow"
-data-id="{{ $task->id }}">
+@php
+    $vencida = $task->fecha_limite && $task->fecha_limite < now() && $task->estado != 'completada';
+@endphp
+
+<div class="task p-3 rounded shadow
+    {{ $vencida ? 'bg-red-300 border-2 border-red-600' : 'bg-yellow-100' }}"
+    data-id="{{ $task->id }}">
+
+@if($vencida)
+    <p class="text-xs text-red-700 font-bold">
+        ⚠ Tarea vencida
+    </p>
+@endif    
 
 <p class="font-semibold">{{ $task->titulo }}</p>
+
+<p class="text-xs text-gray-500">
+📅 {{ $task->fecha_limite }}
+</p>
 
 <p class="text-sm text-gray-600">
 {{ $task->descripcion }}
@@ -64,10 +79,25 @@ En proceso ({{ count($proceso) }})
 
 @foreach($proceso as $task)
 
-<div class="task bg-blue-100 p-3 rounded shadow"
-data-id="{{ $task->id }}">
+@php
+    $vencida = $task->fecha_limite && $task->fecha_limite < now() && $task->estado != 'completada';
+@endphp
+
+<div class="task p-3 rounded shadow
+    {{ $vencida ? 'bg-red-300 border-2 border-red-600' : 'bg-yellow-100' }}"
+    data-id="{{ $task->id }}">
+
+@if($vencida)
+    <p class="text-xs text-red-700 font-bold">
+        ⚠ Tarea vencida
+    </p>
+@endif
 
 <p class="font-semibold">{{ $task->titulo }}</p>
+
+<p class="text-xs text-gray-500">
+📅 {{ $task->fecha_limite }}
+</p>
 
 <p class="text-sm text-gray-600">
 {{ $task->descripcion }}
@@ -98,10 +128,25 @@ Completadas ({{ count($completadas) }})
 
 @foreach($completadas as $task)
 
-<div class="task bg-green-100 p-3 rounded shadow"
-data-id="{{ $task->id }}">
+@php
+    $vencida = $task->fecha_limite && $task->fecha_limite < now() && $task->estado != 'completada';
+@endphp
+
+<div class="task p-3 rounded shadow
+    {{ $vencida ? 'bg-red-300 border-2 border-red-600' : 'bg-yellow-100' }}"
+    data-id="{{ $task->id }}">
+
+@if($vencida)
+    <p class="text-xs text-red-700 font-bold">
+        ⚠ Tarea vencida
+    </p>
+@endif
 
 <p class="font-semibold">{{ $task->titulo }}</p>
+
+<p class="text-xs text-gray-500">
+📅 {{ $task->fecha_limite }}
+</p>
 
 <p class="text-sm text-gray-600">
 {{ $task->descripcion }}
