@@ -90,4 +90,17 @@ class TaskController extends Controller
     return response()->json(['success' => true]);
     }
 
+    public function updateFromDashboard(Request $request)
+{
+    $task = \App\Models\Task::find($request->id);
+
+    $task->titulo = $request->titulo;
+    $task->descripcion = $request->descripcion;
+    $task->estado = $request->estado;
+
+    $task->save();
+
+    return response()->json(['success'=>true]);
+}
+
 }
