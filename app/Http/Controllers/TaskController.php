@@ -28,7 +28,14 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-    \App\Models\Task::create($request->all());
+    \App\Models\Task::create([
+        'titulo' => $request->titulo,
+        'descripcion' => $request->descripcion,
+        'estado' => $request->estado,
+        'fecha_limite' => $request->fecha_limite,
+        'user_id' => null
+    ]);
+
     return redirect()->route('tasks.index');
     }
 
