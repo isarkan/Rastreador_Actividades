@@ -14,11 +14,22 @@ use App\Http\Controllers\TaskController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::resource('tasks', TaskController::class);
-Route::post('/tasks/update-status', [TaskController::class, 'updateStatus']);
-Route::post('/tasks/update', [TaskController::class, 'updateFromDashboard']);
-Route::get('/dashboard', [TaskController::class, 'dashboard']);
-Route::get('/', function () {
-    return view('welcome');
 
+use App\Http\Controllers\AuthController;
+
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::get('/register', [AuthController::class, 'showRegister']);
+Route::post('/register', [AuthController::class, 'register']);
+
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
+
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/dashboard', [TaskController::class, 'dashboard']);
+    Route::post('/tasks/update-status', [TaskController::class, 'updateStatus']);
+    Route::post('/tasks/update', [TaskController::class, 'updateFromDashboard']);
+    Route::resource('tasks', TaskController::class);
 });
+
