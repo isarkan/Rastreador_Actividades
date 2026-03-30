@@ -19,9 +19,24 @@
 
 <body class="bg-gray-100 min-h-screen p-10">
 
-<h1 class="text-3xl font-bold text-center mb-8">
-📊 Rastreador de Actividades
-</h1>
+<div class="flex justify-between items-center mb-8">
+
+    <h1 class="text-3xl font-bold">
+        📊 Rastreador de Actividades
+    </h1>
+
+    <p class="text-gray-600">
+            Bienvenido, {{ auth()->user()->name }}
+        </p>
+
+    <form method="POST" action="/logout">
+        @csrf
+        <button class="bg-red-500 text-white px-4 py-2 rounded shadow">
+            Cerrar sesión
+        </button>
+    </form>
+
+</div>
 
 <div class="grid grid-cols-3 gap-6">
 
