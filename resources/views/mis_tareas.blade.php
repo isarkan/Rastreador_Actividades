@@ -21,40 +21,20 @@
 
 <div class="flex justify-between items-center mb-8">
 
-    <div>
-        <h1 class="text-3xl font-bold">
-            📊 Rastreador de Actividades
-        </h1>
+    <h1 class="text-3xl font-bold">
+        📌 Mis tareas
+    </h1>
 
-        @auth
-            <p class="text-gray-600">
-                Bienvenido, {{ auth()->user()->name }}
-            </p>
-        @else
-            <p class="text-gray-600">
-                🌍 Tareas disponibles para todo el equipo
-            </p>
-        @endauth
-    </div>
+    <p class="text-gray-600">
+            Bienvenido, {{ auth()->user()->name }}
+        </p>
 
-    <div class="flex gap-2">
-        @auth
-            <a href="/mis-tareas" class="bg-blue-500 text-white px-4 py-2 rounded shadow">
-                Mis tareas
-            </a>
-
-            <form method="POST" action="/logout">
-                @csrf
-                <button class="bg-red-500 text-white px-4 py-2 rounded shadow">
-                    Cerrar sesión
-                </button>
-            </form>
-        @else
-            <a href="/login" class="bg-green-500 text-white px-4 py-2 rounded shadow">
-                Iniciar sesión
-            </a>
-        @endauth
-    </div>
+    <form method="POST" action="/logout">
+        @csrf
+        <button class="bg-red-500 text-white px-4 py-2 rounded shadow">
+            Cerrar sesión
+        </button>
+    </form>
 
 </div>
 
@@ -100,12 +80,10 @@ Pendientes ({{ count($pendientes) }})
 </p>
 
 
-@auth
 <button onclick="editarTask({{ $task->id }}, '{{ $task->titulo }}', '{{ $task->descripcion }}', '{{ $task->estado }}')"
 class="text-xs text-blue-600 mt-2">
-    Editar
+Editar
 </button>
-@endauth
 
 <form method="POST" action="/tasks/tomar/{{ $task->id }}">
     @csrf

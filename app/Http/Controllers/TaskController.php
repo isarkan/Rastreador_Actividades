@@ -72,11 +72,19 @@ class TaskController extends Controller
 
     public function dashboard()
     {
-        $pendientes = \App\Models\Task::where('estado','pendiente')->get();
-        $proceso = \App\Models\Task::where('estado','proceso')->get();
-        $completadas = \App\Models\Task::where('estado','completada')->get();
+    $pendientes = \App\Models\Task::where('estado', 'pendiente')
+        ->whereNull('user_id')
+        ->get();
 
-        return view('dashboard', compact('pendientes','proceso','completadas'));
+    $proceso = \App\Models\Task::where('estado', 'proceso')
+        ->whereNull('user_id')
+        ->get();
+
+    $completadas = \App\Models\Task::where('estado', 'completada')
+        ->whereNull('user_id')
+        ->get();
+
+    return view('dashboard', compact('pendientes', 'proceso', 'completadas'));
     }
 
     public function updateStatus(Request $request)
@@ -91,7 +99,7 @@ class TaskController extends Controller
     }
 
     public function updateFromDashboard(Request $request)
-{
+    {
     $task = \App\Models\Task::find($request->id);
 
     $task->titulo = $request->titulo;
@@ -101,6 +109,33 @@ class TaskController extends Controller
     $task->save();
 
     return response()->json(['success'=>true]);
-}
+    }
+
+    public function misTareas()
+    {
+    $pendientes = \App\Models\Task::where('estado', 'pendiente')
+        ->where('user_id', auth()->id())
+        ->get();
+
+    $proceso = \App\Models\Task::where('estado', 'proceso')
+        ->where('user_id', auth()->id())
+        ->get();
+
+    $completadas = \App\Models\Task::where('estado', 'completada')
+        ->where('user_id', auth()->id())
+        ->get();
+
+    return view('mis_tareas', compact('pendientes', 'proceso', 'completadas'));
+    }
+
+    public function tomarTarea($id)
+    {
+    $task = \App\Models\Task::findOrFail($id);
+
+    $task->user_id = auth()->id();
+    $task->save();
+
+    return redirect('/mis-tareas');
+    }
 
 }
