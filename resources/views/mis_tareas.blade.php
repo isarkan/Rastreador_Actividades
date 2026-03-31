@@ -85,10 +85,10 @@ class="text-xs text-blue-600 mt-2">
 Editar
 </button>
 
-<form method="POST" action="/tasks/tomar/{{ $task->id }}">
+<form method="POST" action="/tasks/liberar/{{ $task->id }}">
     @csrf
-    <button class="bg-green-500 text-white px-3 py-1 rounded mt-2 text-sm">
-        Tomar tarea
+    <button class="bg-orange-500 text-white px-3 py-1 rounded mt-2 text-sm">
+        🔄 Liberar tarea
     </button>
 </form>
 
@@ -143,6 +143,13 @@ class="text-xs text-blue-600 mt-2">
 Editar
 </button>
 
+<form method="POST" action="/tasks/liberar/{{ $task->id }}">
+    @csrf
+    <button class="bg-orange-500 text-white px-3 py-1 rounded mt-2 text-sm">
+        🔄 Liberar tarea
+    </button>
+</form>
+
 </div>
 
 @endforeach
@@ -193,6 +200,13 @@ Completadas ({{ count($completadas) }})
 class="text-xs text-blue-600 mt-2">
 Editar
 </button>
+
+<form method="POST" action="/tasks/liberar/{{ $task->id }}">
+    @csrf
+    <button class="bg-orange-500 text-white px-3 py-1 rounded mt-2 text-sm">
+        🔄 Liberar tarea
+    </button>
+</form>
 
 </div>
 

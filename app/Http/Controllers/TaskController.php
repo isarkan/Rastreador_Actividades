@@ -145,4 +145,14 @@ class TaskController extends Controller
     return redirect('/mis-tareas');
     }
 
+    public function liberarTarea($id)
+    {
+    $task = \App\Models\Task::findOrFail($id);
+
+    $task->user_id = null;
+    $task->save();
+
+    return redirect('/mis-tareas');
+    }
+
 }

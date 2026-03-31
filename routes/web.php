@@ -24,6 +24,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/tasks/tomar/{id}', [TaskController::class, 'tomarTarea']);
 
+    Route::post('/tasks/liberar/{id}', [TaskController::class, 'liberarTarea']);
+    
     Route::post('/tasks/update-status', [TaskController::class, 'updateStatus']);
 
     Route::post('/tasks/update', [TaskController::class, 'updateFromDashboard']);
