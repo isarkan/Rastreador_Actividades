@@ -14,6 +14,11 @@ class Task extends Model
     'estado',
     'fecha_limite'
 ];
+
+public function historial()
+{
+    return $this->hasMany(TaskHistory::class);
+}
 }
 
 

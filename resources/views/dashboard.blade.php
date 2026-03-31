@@ -159,6 +159,11 @@
     </div>
 </div>
 
+
+<a href="{{ route('tasks.show', $task->id) }}">
+    Ver historial
+</a>
+
 <script>
     let tareaActualId = null;
 
