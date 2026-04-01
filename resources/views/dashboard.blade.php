@@ -115,10 +115,15 @@
 
                         <div class="flex gap-2 mt-2">
                             @auth
-                                <button onclick="editarTask({{ json_encode($taskData) }})"
+                                <button onclick='editarTask(@json($taskData))'
                                         class="text-xs text-blue-600">
                                     Editar
                                 </button>
+
+                                <!-- <button onclick="editarTask({{ json_encode($taskData) }})"
+                                        class="text-xs text-blue-600">
+                                    Editar
+                                </button> -->
                             @endauth
 
                             <form method="POST" action="/tasks/tomar/{{ $task->id }}">
@@ -164,59 +169,6 @@
     Ver historial
 </a>
 
-<script>
-    let tareaActualId = null;
-
-    function editarTask(task) {
-        tareaActualId = task.id;
-        document.getElementById('editTitulo').value = task.titulo;
-        document.getElementById('editDescripcion').value = task.descripcion;
-        document.getElementById('editEstado').value = task.estado;
-        document.getElementById('modal').classList.remove('hidden');
-    }
-
-    function cerrarModal() {
-        document.getElementById('modal').classList.add('hidden');
-        tareaActualId = null;
-    }
-
-    function guardarCambios() {
-        const titulo = document.getElementById('editTitulo').value;
-        const descripcion = document.getElementById('editDescripcion').value;
-        const estado = document.getElementById('editEstado').value;
-
-        fetch(`/tasks/${tareaActualId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify({ titulo, descripcion, estado })
-        })
-        .then(response => {
-            if (response.ok) {
-                location.reload();
-            } else {
-                alert('Error al actualizar la tarea');
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }
-
-    document.getElementById('buscador').addEventListener('input', function(e) {
-        const term = e.target.value.toLowerCase();
-        const tasks = document.querySelectorAll('.task');
-        tasks.forEach(task => {
-            const titulo = task.getAttribute('data-titulo') || '';
-            const descripcion = task.getAttribute('data-descripcion') || '';
-            if (titulo.includes(term) || descripcion.includes(term)) {
-                task.style.display = '';
-            } else {
-                task.style.display = 'none';
-            }
-        });
-    });
-</script>
 
 </body>
 </html>

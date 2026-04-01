@@ -1,104 +1,101 @@
 import './bootstrap';
-
 import Sortable from 'sortablejs';
 
-document.querySelectorAll('.task-list').forEach(list => {
-
-    new Sortable(list, {
-        group: 'tasks',
-        animation: 150,
-
-        onEnd: function (evt) {
-
-            let taskId = evt.item.dataset.id;
-            let newStatus = evt.to.id;
-
-            fetch('/tasks/update-status', {
-
-                method: 'POST',
-
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                },
-
-                body: JSON.stringify({
-                    id: taskId,
-                    estado: newStatus
-                })
-
-            })
-                .then(() => {
-
-                    location.reload();
-
-                });
-        }
-    });
-
+document.addEventListener('DOMContentLoaded', () => {
+    iniciarDragDrop();
+    iniciarBuscador();
 });
 
-let taskIdActual = null;
+function iniciarDragDrop() {
+    const listas = document.querySelectorAll('.task-list');
+    if (!listas.length) return;
 
-window.editarTask = function(id, titulo, descripcion, estado) {
+    listas.forEach(list => {
+        new Sortable(list, {
+            group: 'tasks',
+            animation: 150,
 
-    taskIdActual = id;
+            onEnd: function (evt) {
+                let taskId = evt.item.dataset.id;
+                let newStatus = evt.to.id;
 
-    document.getElementById('editTitulo').value = titulo;
-    document.getElementById('editDescripcion').value = descripcion;
-    document.getElementById('editEstado').value = estado;
+                fetch('/tasks/update-status', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify({
+                        id: taskId,
+                        estado: newStatus
+                    })
+                }).then(() => location.reload());
+            }
+        });
+    });
+}
+
+let tareaActualId = null;
+
+// 🌍 funciones globales para Blade
+window.editarTask = function(task) {
+    tareaActualId = task.id;
+
+    document.getElementById('editTitulo').value = task.titulo;
+    document.getElementById('editDescripcion').value = task.descripcion;
+    document.getElementById('editEstado').value = task.estado;
 
     document.getElementById('modal').classList.remove('hidden');
 }
 
 window.cerrarModal = function() {
     document.getElementById('modal').classList.add('hidden');
+    tareaActualId = null;
 }
 
 window.guardarCambios = function() {
+    const titulo = document.getElementById('editTitulo').value;
+    const descripcion = document.getElementById('editDescripcion').value;
+    const estado = document.getElementById('editEstado').value;
 
-    fetch('/tasks/update', {
-
-        method: 'POST',
-
+    fetch(`/tasks/${tareaActualId}`, {
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
         },
-
         body: JSON.stringify({
-            id: taskIdActual,
-            titulo: document.getElementById('editTitulo').value,
-            descripcion: document.getElementById('editDescripcion').value,
-            estado: document.getElementById('editEstado').value
+            titulo,
+            descripcion,
+            estado
         })
-
     })
-    .then(() => location.reload());
-
+    .then(response => {
+        if (response.ok) {
+            location.reload();
+        } else {
+            alert('Error al actualizar la tarea');
+        }
+    })
+    .catch(error => console.error('Error:', error));
 }
 
-const buscador = document.getElementById('buscador');
+function iniciarBuscador() {
+    const buscador = document.getElementById('buscador');
+    if (!buscador) return;
 
-if (buscador) {
+    buscador.addEventListener('input', function(e) {
+        const term = e.target.value.toLowerCase();
+        const tasks = document.querySelectorAll('.task');
 
-    buscador.addEventListener('keyup', function () {
+        tasks.forEach(task => {
+            const titulo = task.dataset.titulo || '';
+            const descripcion = task.dataset.descripcion || '';
 
-        let texto = this.value.toLowerCase();
-
-        document.querySelectorAll('.task').forEach(task => {
-
-            let titulo = task.dataset.titulo;
-            let descripcion = task.dataset.descripcion;
-
-            if (titulo.includes(texto) || descripcion.includes(texto)) {
-                task.style.display = 'block';
-            } else {
-                task.style.display = 'none';
-            }
-
+            task.style.display =
+                titulo.includes(term) || descripcion.includes(term)
+                    ? ''
+                    : 'none';
         });
-
     });
-
 }
