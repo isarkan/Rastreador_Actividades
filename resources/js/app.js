@@ -1,9 +1,11 @@
 import './bootstrap';
 import Sortable from 'sortablejs';
+import Chart from 'chart.js/auto';
 
 document.addEventListener('DOMContentLoaded', () => {
     iniciarDragDrop();
     iniciarBuscador();
+    iniciarReportes();
 });
 
 function iniciarDragDrop() {
@@ -98,4 +100,51 @@ function iniciarBuscador() {
                     : 'none';
         });
     });
+}
+
+function iniciarReportes() {
+    const estadoCanvas = document.getElementById('estadoChart');
+    const usuariosCanvas = document.getElementById('usuariosChart');
+
+    if (estadoCanvas) {
+        new Chart(estadoCanvas, {
+            type: 'doughnut',
+            data: {
+                labels: ['Pendientes', 'Proceso', 'Completadas'],
+                datasets: [{
+                    data: window.reporteEstados
+                }]
+            }
+        });
+    }
+
+    if (usuariosCanvas) {
+        new Chart(usuariosCanvas, {
+            type: 'bar',
+            data: {
+                labels: window.topUsuariosNombres,
+                datasets: [{
+                    label: 'Tareas completadas',
+                    data: window.topUsuariosValores
+                }]
+            }
+        });
+    }
+
+    const lineaCanvas = document.getElementById('lineaChart');
+
+    if (lineaCanvas) {
+        new Chart(lineaCanvas, {
+            type: 'line',
+            data: {
+                labels: window.fechas,
+                datasets: [{
+                    label: 'Completadas por día',
+                    data: window.totalesPorDia
+                }]
+            }
+        });
+    }
+
+
 }

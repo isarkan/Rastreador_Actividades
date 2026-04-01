@@ -200,6 +200,54 @@ class TaskController extends Controller
     return redirect('/mis-tareas');
     }
     
+    public function reportes()
+    {
+    $pendientes = Task::where('estado', 'pendiente')->count();
+    $proceso = Task::where('estado', 'proceso')->count();
+    $completadas = Task::where('estado', 'completada')->count();
+
+    $usuariosTop = TaskHistory::selectRaw('user_id, count(*) as total')
+        ->where('accion', 'cambió el estado')
+        ->where('estado_nuevo', 'completada')
+        ->groupBy('user_id')
+        ->with('usuario')
+        ->orderByDesc('total')
+        ->take(5)
+        ->get();
+
+    $nombresUsuarios = $usuariosTop->map(function ($item) {
+    return $item->usuario->name ?? 'Sin usuario';
+    });
+
+    $totalesUsuarios = $usuariosTop->pluck('total');
+    
+    $totalTareas = Task::count();
+
+    $usuarioTop = $usuariosTop->first();
+
+    $tareasPorDia = TaskHistory::selectRaw('DATE(created_at) as fecha, count(*) as total')
+        ->where('estado_nuevo', 'completada')
+        ->groupBy('fecha')
+        ->orderBy('fecha')
+        ->get();
+
+    $fechas = $tareasPorDia->pluck('fecha');
+    $totalesPorDia = $tareasPorDia->pluck('total');
+
+    return view('graficas', compact(
+        'pendientes',
+        'proceso',
+        'completadas',
+        'nombresUsuarios',
+        'totalesUsuarios',
+        'totalTareas',
+        'usuarioTop',
+        'fechas',
+        'totalesPorDia'
+    ));
+    }
+
+
 
 
 }

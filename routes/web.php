@@ -14,6 +14,9 @@ Route::post('/register', [AuthController::class, 'register']);
 // 🌍 Dashboard público
 Route::get('/dashboard', [TaskController::class, 'dashboard']);
 
+// Route::get('/show', [TaskController::class, 'show'])->name('show');
+
+Route::get('/graficas', [TaskController::class, 'reportes'])->name('graficas');
 
 // 🔐 Rutas protegidas
 Route::middleware('auth')->group(function () {
