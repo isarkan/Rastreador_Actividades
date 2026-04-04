@@ -4,12 +4,19 @@
 <head>
     <title>Dashboard</title>
 
+   <div class="flex gap-3 mb-6">
     <input 
         type="text" 
         id="buscador"
         placeholder="🔍 Buscar tareas..."
-        class="w-full p-3 mb-6 border rounded shadow"
+        class="flex-1 p-3 border rounded shadow"
     >
+
+        <a href="{{ route('graficas') }}"
+        class="bg-purple-600 text-white px-4 py-3 rounded shadow hover:bg-purple-700">
+            📊 Ver gráficas
+        </a>
+    </div>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 

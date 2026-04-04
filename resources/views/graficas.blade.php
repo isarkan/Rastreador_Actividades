@@ -9,9 +9,26 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+
+<a href="/dashboard" class="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600">
+                Volver al dashboard
+            </a>
+
+            <style>
+                body > a[href="/dashboard"] {
+                    position: absolute;
+                    top: 1rem;
+                    right: 1rem;
+                    margin: 0;
+                }
+
+                .kpi-spacing {
+                    margin-top: 5rem;
+                }
+            </style>
+            <div class="kpi-spacing"></div>
+
 <body class="bg-gray-100 min-h-screen">
-
-
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         <div class="bg-white shadow rounded p-4">
             <p class="text-sm text-gray-500">Total tareas</p>
