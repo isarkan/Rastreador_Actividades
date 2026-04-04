@@ -132,6 +132,10 @@
                                     Tomar tarea
                                 </button>
                             </form>
+
+                            <a href="{{ route('tasks.show', $task->id) }}">
+                                Ver historial
+                            </a>
                         </div>
                     </div>
                 @endforeach
@@ -165,9 +169,7 @@
 </div>
 
 
-<a href="{{ route('tasks.show', $task->id) }}">
-    Ver historial
-</a>
+
 
 
 </body>
