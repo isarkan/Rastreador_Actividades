@@ -114,18 +114,6 @@
                         <p class="text-sm text-gray-600">{{ $task->descripcion }}</p>
 
                         <div class="flex gap-2 mt-2">
-                            @auth
-                                <button onclick='editarTask(@json($taskData))'
-                                        class="text-xs text-blue-600">
-                                    Editar
-                                </button>
-
-                                <!-- <button onclick="editarTask({{ json_encode($taskData) }})"
-                                        class="text-xs text-blue-600">
-                                    Editar
-                                </button> -->
-                            @endauth
-
                             <form method="POST" action="/tasks/tomar/{{ $task->id }}">
                                 @csrf
                                 <button class="bg-green-500 text-white px-3 py-1 rounded text-xs">
