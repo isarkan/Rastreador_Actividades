@@ -3,9 +3,11 @@ import Sortable from 'sortablejs';
 import Chart from 'chart.js/auto';
 
 document.addEventListener('DOMContentLoaded', () => {
+    if (!window.location.pathname.includes('/dashboard')) {
     iniciarDragDrop();
     iniciarBuscador();
     iniciarReportes();
+    }
 });
 
 function iniciarDragDrop() {

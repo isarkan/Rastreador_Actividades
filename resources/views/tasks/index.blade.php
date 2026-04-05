@@ -71,6 +71,11 @@
                 >
                     💾 Guardar tarea
                 </button>
+
+                <a href="/dashboard" class="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600">
+                Volver al dashboard
+            </a>
+            
             </form>
         </div>
 

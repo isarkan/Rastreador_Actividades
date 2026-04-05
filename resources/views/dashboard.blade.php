@@ -1,66 +1,77 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
 
-   <div class="flex gap-3 mb-6">
-    <input 
-        type="text" 
-        id="buscador"
-        placeholder="🔍 Buscar tareas..."
-        class="flex-1 p-3 border rounded shadow"
-    >
-
-        <a href="{{ route('graficas') }}"
-        class="bg-purple-600 text-white px-4 py-3 rounded shadow hover:bg-purple-700">
-            📊 Ver gráficas
-        </a>
-    </div>
-
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="bg-gray-100 min-h-screen p-10">
 
-<div class="flex justify-between items-center mb-8">
-    <div>
-        <h1 class="text-3xl font-bold">
-            📊 Rastreador de Actividades
-        </h1>
+    <!-- BUSCADOR + BOTON GRAFICAS -->
+    <div class="flex gap-3 mb-8">
+        <input 
+            type="text" 
+            id="buscador"
+            placeholder="🔍 Buscar tareas..."
+            class="flex-1 p-3 border rounded-lg shadow"
+        >
 
-        @auth
-            <p class="text-gray-600">
-                Bienvenido, {{ auth()->user()->name }}
-            </p>
-        @else
-            <p class="text-gray-600">
-                🌍 Tareas disponibles para todo el equipo
-            </p>
-        @endauth
+        <a href="{{ route('graficas') }}"
+           class="bg-purple-600 text-white px-5 py-3 rounded-lg shadow hover:bg-purple-700 transition">
+            📊 Ver gráficas
+        </a>
     </div>
 
-    <div class="flex gap-2">
-        @auth
-            <a href="/mis-tareas" class="bg-blue-500 text-white px-4 py-2 rounded shadow">
-                Mis tareas
-            </a>
+    <!-- TITULO + BOTONES -->
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-4xl font-bold">
+                📊 Rastreador de Actividades
+            </h1>
 
-            <form method="POST" action="/logout">
-                @csrf
-                <button class="bg-red-500 text-white px-4 py-2 rounded shadow">
-                    Cerrar sesión
-                </button>
-            </form>
-        @else
-            <a href="/login" class="bg-green-500 text-white px-4 py-2 rounded shadow">
-                Iniciar sesión
-            </a>
-        @endauth
+            @auth
+                <p class="text-gray-600">
+                    Bienvenido, {{ auth()->user()->name }}
+                </p>
+            @else
+                <p class="text-gray-600">
+                    🌍 Tareas disponibles para todo el equipo
+                </p>
+            @endauth
+        </div>
+
+        <div class="flex items-center gap-3">
+            @auth
+                <a href="/mis-tareas"
+                   class="bg-blue-500 text-white px-4 py-3 rounded-lg shadow hover:bg-blue-600 transition">
+                    📋 Mis tareas
+                </a>
+
+                @if(auth()->user()->email === 'lider@gmail.com')
+                    <a href="/tasks"
+                       class="bg-green-600 text-white px-4 py-3 rounded-lg shadow hover:bg-green-700 transition">
+                        ➕ Nueva tarea
+                    </a>
+                @endif
+
+                <form method="POST" action="/logout" class="m-0">
+                    @csrf
+                    <button class="bg-red-500 text-white px-4 py-3 rounded-lg shadow hover:bg-red-600 transition">
+                        🚪 Cerrar sesión
+                    </button>
+                </form>
+            @else
+                <a href="/login"
+                   class="bg-green-500 text-white px-4 py-3 rounded-lg shadow hover:bg-green-600 transition">
+                    🔐 Iniciar sesión
+                </a>
+            @endauth
+        </div>
     </div>
-</div>
 
 <div class="grid grid-cols-3 gap-6">
     @php

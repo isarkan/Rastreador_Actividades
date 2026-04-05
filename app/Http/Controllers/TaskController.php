@@ -22,7 +22,10 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        if (auth()->user()->email !== 'lider@gmail.com') {
+        abort(403, 'No autorizado');
+        }
+    return view('tasks.create');
     }
 
     /**
@@ -30,6 +33,9 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+        if (auth()->user()->email !== 'lider@gmail.com') {
+        abort(403, 'No autorizado');
+    }
     \App\Models\Task::create([
         'titulo' => $request->titulo,
         'descripcion' => $request->descripcion,
