@@ -65,17 +65,21 @@
                     >
                 </div>
 
-                <button 
-                    type="submit"
-                    class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
-                >
-                    💾 Guardar tarea
-                </button>
+                <div class="flex gap-3">
+                    <button 
+                        type="submit"
+                        class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
+                    >
+                        💾 Guardar tarea
+                    </button>
 
-                <a href="/dashboard" class="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600">
-                Volver al dashboard
-            </a>
-            
+                    <a 
+                        href="/dashboard"
+                        class="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition inline-block"
+                    >
+                        ⬅️ Volver al dashboard
+                    </a>
+                </div>
             </form>
         </div>
 
