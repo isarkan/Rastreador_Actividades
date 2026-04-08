@@ -28,7 +28,9 @@
             </style>
             <div class="kpi-spacing"></div>
 
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-gray-100 min-h-screen p-6">
+
+    <!-- KPI -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         <div class="bg-white shadow rounded p-4">
             <p class="text-sm text-gray-500">Total tareas</p>
@@ -53,21 +55,23 @@
         </div>
     </div>
 
-    <div class="mt-6 bg-white shadow rounded p-4">
+    <!-- Gráfica principal -->
+    <div class="mt-6 bg-white shadow rounded p-4 h-[45vh] min-h-[350px]">
         <h2 class="font-semibold mb-4">Tareas completadas por día</h2>
         <canvas id="lineaChart"></canvas>
     </div>
 
-    <div class="p-6">
+    <!-- Otras gráficas -->
+    <div class="mt-6">
         <h1 class="text-2xl font-bold mb-6">Gráficas del sistema</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-white shadow rounded p-4">
+            <div class="bg-white shadow rounded p-4 h-[40vh] min-h-[300px]">
                 <h2 class="font-semibold mb-4">Estado de tareas</h2>
                 <canvas id="estadoChart"></canvas>
             </div>
 
-            <div class="bg-white shadow rounded p-4">
+            <div class="bg-white shadow rounded p-4 h-[40vh] min-h-[300px]">
                 <h2 class="font-semibold mb-4">Top usuarios</h2>
                 <canvas id="usuariosChart"></canvas>
             </div>

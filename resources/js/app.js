@@ -116,6 +116,10 @@ function iniciarReportes() {
                 datasets: [{
                     data: window.reporteEstados
                 }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
             }
         });
     }
@@ -129,6 +133,10 @@ function iniciarReportes() {
                     label: 'Tareas completadas',
                     data: window.topUsuariosValores
                 }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
             }
         });
     }
@@ -144,9 +152,12 @@ function iniciarReportes() {
                     label: 'Completadas por día',
                     data: window.totalesPorDia
                 }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
             }
         });
     }
-
-
 }
+
