@@ -108,6 +108,12 @@
                     @php
                         $vencida = $task->fecha_limite && $task->fecha_limite < now() && $task->estado != 'completada';
                         $cardClass = $vencida ? 'bg-red-300 border-2 border-red-600' : 'bg-yellow-100';
+
+                        $diasRestantes = null;
+                        if ($task->fecha_limite) {
+                            $diasRestantes = now()->diffInDays($task->fecha_limite, false);
+                        }
+
                         $taskData = [
                             'id' => $task->id,
                             'titulo' => $task->titulo,
@@ -129,6 +135,19 @@
 
                         <p class="font-semibold">{{ $task->titulo }}</p>
                         <p class="text-xs text-gray-500">📅 {{ $task->fecha_limite }}</p>
+                        @if(!is_null($diasRestantes))
+                            <p class="text-xs font-semibold 
+                                {{ $diasRestantes < 0 ? 'text-red-700' : 'text-blue-700' }}">
+                                
+                                @if($diasRestantes < 0)
+                                    ⏰ Venció hace {{ abs($diasRestantes) }} días
+                                @elseif($diasRestantes == 0)
+                                    ⚡ Vence hoy
+                                @else
+                                    ⌛ Faltan {{ $diasRestantes }} días
+                                @endif
+                            </p>
+                        @endif
                         <p class="text-sm text-gray-600">{{ $task->descripcion }}</p>
 
                         <div class="flex gap-2 mt-2">
